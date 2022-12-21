@@ -4,7 +4,7 @@ import { signOut } from "firebase/auth";
 import { auth, db } from "../firebaseconfig";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import { collection, getDocs } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 import getOtherEmail from "../util/getOtherEmail";
 import { redirect } from "next/dist/server/api-utils";
 import { useRouter } from "next/router";
@@ -20,6 +20,14 @@ export default function Sidebar() {
 
   const redirect = (id) => {
     router.push(`/chat/${id}`)
+  }
+
+  const chatExists = email => chats?.find(chat => (chat.users.includes(user.email) && chat.users.includes(email)))
+
+  const newChat = async() => {
+    const input = prompt("Digita el email del chat")
+    if(!chatExists(input) && (input != user.email))
+    await addDoc(collection(db, "chats"), {  users: [user.email, input] })
   }
 
   const chatList = () => {
@@ -61,7 +69,7 @@ export default function Sidebar() {
         <IconButton size="sm" isRound icon={<ArrowLeftIcon />} onClick={() => signOut()} />
       </Flex>
 
-      <Button m={5} p={4}>
+      <Button m={5} p={4} onClick={() => newChat()}>
         New chat
       </Button>
 
