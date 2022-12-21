@@ -66,7 +66,7 @@ export default function Sidebar() {
           <Avatar src={user.photoURL} marginEnd={3} />
           <Text> {user.displayName} </Text>
         </Flex>
-        <IconButton size="sm" isRound icon={<ArrowLeftIcon />} onClick={() => signOut()} />
+        <IconButton size="sm" isRound icon={<ArrowLeftIcon />} onClick={() => signOut(auth)} />
       </Flex>
 
       <Button m={5} p={4} onClick={() => newChat()}>
