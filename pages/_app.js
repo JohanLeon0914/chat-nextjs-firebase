@@ -1,6 +1,5 @@
 import { Center, ChakraProvider, Spinner } from "@chakra-ui/react"
 import Login from "../components/Login"
-import Sidebar from "../components/SideBar"
 import '../styles/globals.css'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from "../firebaseconfig"
